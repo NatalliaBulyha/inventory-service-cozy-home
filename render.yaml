@@ -1,0 +1,22 @@
+services:
+  - name: cozy_home
+    env:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://us-east-1.1011fee9-16fc-4815-a65b-dc761c359a59.aws.ybdb.io:5433/postgres?ssl=true&sslmode=verify-full&sslrootcert=/etc/secrets/root.crt
+      - key: SPRING_DATASOURCE_USERNAME
+        value: admin
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: VbZblRhtP62ugQc2IiOXMkLr4aSJTl
+      - key: SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA
+        value: inventory
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: none
+    buildCommand: mvn clean package
+    startCommand: java -jar target/inventory-service-0.0.1-SNAPSHOT.jar
+    ports:
+      - port: 8081
+        name: http
+    healthCheckPath: /actuator/health
+    
